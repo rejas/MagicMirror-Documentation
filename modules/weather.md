@@ -34,38 +34,48 @@ To use this module, add it to the modules array in the `config/config.js` file:
 
 ## Themes
 
-Beginning with MagicMirror² `v2.35.0` we offer the use of themes. With this enhancement
-users must not create an own module if they only want to change the design of the module.
+Beginning with MagicMirror² `v2.35.0` we offer the use of themes. With this
+enhancement users must not create an own module if they only want to change the
+design of the module.
 
 ### Motivation
 
-The number of weather modules is probably the highest in the MagicMirror² universe.
+The number of weather modules is probably the highest in the MagicMirror²
+universe.
 
-For most, the focus is likely less on integrating a missing weather provider and more on the design.
+For most, the focus is likely less on integrating a missing weather provider and
+more on the design.
 
 Weather Themes are designed to fill this gap.
 
-Simply rely on the existing weather module, which robustly takes care of retrieving the data,
-and just focus on customizing the design.
+Simply rely on the existing weather module, which robustly takes care of
+retrieving the data, and just focus on customizing the design.
 
 ### Usage:
 
 - create a theme directory under `modules`, e.g. `modules/myweathertemplate`.
-- create own files `current.njk`, `forecast.njk`, `hourly.njk` and `weather.css` in the new directory.
-  As starting point you can copy the existing files (located at `defaultmodules/weather`).
-- set the configuration option `themeDir` to your new theme directory (e.g. `../../../modules/myweathertemplate`).
+- create own files `current.njk`, `forecast.njk`, `hourly.njk` and `weather.css`
+  in the new directory. As starting point you can copy the existing files
+  (located at `defaultmodules/weather`).
+- set the configuration option `themeDir` to your new theme directory (e.g.
+  `../../../modules/myweathertemplate`).
 
 For advanced users there are more options to customize the template:
-- you can define a function `window.initWeatherTheme(this)` which is called when starting the module.
-  Insert own code here if you need to do additional stuff before start.
-- you can define a function `window.updateWeatherTheme(this)` for updating the dom with own code.
-- you can use custom scripts located in your theme directory which contain e.g. the 2 methods
-  mentioned above or other stuff. Use the configuration option `themeCustomScripts` to load these scripts.
+
+- you can define a function `window.initWeatherTheme(this)` which is called when
+  starting the module. Insert own code here if you need to do additional stuff
+  before start.
+- you can define a function `window.updateWeatherTheme(this)` for updating the
+  dom with own code.
+- you can use custom scripts located in your theme directory which contain e.g.
+  the 2 methods mentioned above or other stuff. Use the configuration option
+  `themeCustomScripts` to load these scripts.
 
 ### Example
 
-[MMT-WeatherSkycons](https://gitlab.com/khassel/MMT-WeatherSkycons) is probably the first weather theme for MagicMirror².
-It serves here as an example project to demonstrate the possibilities of the themes.
+[MMT-WeatherSkycons](https://gitlab.com/khassel/MMT-WeatherSkycons) is probably
+the first weather theme for MagicMirror². It serves here as an example project
+to demonstrate the possibilities of the themes.
 
 ## Configuration options
 

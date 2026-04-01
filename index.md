@@ -43,8 +43,8 @@ web server or browser installs necessary!
 **New to the concept?** A MagicMirror is a regular display placed behind a
 two-way mirror. The screen shines through the glass while everything else stays
 reflective – turning an ordinary mirror into a smart display. This documentation
-covers the **software** side only – for the **hardware** side (mirror, frame, mounting)
-things are highly individual and best explored through the
+covers the **software** side only – for the **hardware** side (mirror, frame,
+mounting) things are highly individual and best explored through the
 [community showcase](https://forum.magicmirror.builders/category/12/show-your-mirror)
 where others share their builds and setups. Have questions or ideas?
 [Join the forum](https://forum.magicmirror.builders/).
