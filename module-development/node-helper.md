@@ -57,6 +57,10 @@ created:
 this.expressApp.use("/" + this.name, express.static(this.path + "/public"));
 ```
 
+This means files in the `public` folder are only served if the module has a
+`node_helper.js`. See also the [module structure](introduction.md#files)
+documentation.
+
 ### `this.io`
 
 **Socket IO Instance**
@@ -88,6 +92,14 @@ requiresVersion: "2.1.0",
 ### `init()`
 
 This method is called when a node helper gets instantiated. In most cases you do
+not need to subclass this method.
+
+### `loaded()`
+
+_Introduced in version: 2.1.1._
+
+This method is called after the node helper is loaded and its `name` and `path`
+properties have been set, but before `start()` is called. In most cases you do
 not need to subclass this method.
 
 ### `start()`

@@ -4,11 +4,8 @@ This module will be configurable to be used as a current weather view, or to
 show the forecast. This way the module can be used twice to fulfill both
 purposes.
 
-The biggest change is the use of weather providers. This way we are not bound to
-one API source. And users can choose which API they want to use as their source.
-
-The module is in a very early stage, and needs a lot of work. It's API isn't set
-in stone, so keep that in mind when you want to contribute.
+The module uses weather providers. This way we are not bound to one API source.
+And users can choose which API they want to use as their source.
 
 ## Screenshot
 
@@ -35,6 +32,51 @@ To use this module, add it to the modules array in the `config/config.js` file:
     },
 ```
 
+## Themes
+
+Beginning with MagicMirror² `v2.35.0` we offer the use of themes. With this
+enhancement users must not create an own module if they only want to change the
+design of the module.
+
+### Motivation
+
+The number of weather modules is probably the highest in the MagicMirror²
+universe.
+
+For most, the focus is likely less on integrating a missing weather provider and
+more on the design.
+
+Weather Themes are designed to fill this gap.
+
+Simply rely on the existing weather module, which robustly takes care of
+retrieving the data, and just focus on customizing the design.
+
+### Usage:
+
+- create a theme directory under `modules`, e.g. `modules/myweathertemplate`.
+- create own files `current.njk`, `forecast.njk`, `hourly.njk` and `weather.css`
+  in the new directory. As starting point you can copy the existing files
+  (located at `defaultmodules/weather`).
+- set the configuration option `themeDir` to your new theme directory (e.g.
+  `../../../modules/myweathertemplate`).
+
+For advanced users there are more options to customize the template:
+
+- you can define a function `window.initWeatherTheme(this)` which is called when
+  starting the module. Insert own code here if you need to do additional stuff
+  before start.
+- you can define a function `window.updateWeatherTheme(this)` for updating the
+  dom with own code.
+- you can use custom scripts located in your theme directory which contain e.g.
+  the 2 methods mentioned above or other stuff. Use the configuration option
+  `themeCustomScripts` to load these scripts.
+
+### Example
+
+[MMT-WeatherSkycons](https://gitlab.com/khassel/MMT-WeatherSkycons) is probably
+the first weather theme for MagicMirror². It serves here as an example project
+to demonstrate the possibilities of the themes.
+
 ## Configuration options
 
 The following properties can be configured:
@@ -43,7 +85,7 @@ The following properties can be configured:
 
 | Option                         | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 | ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `weatherProvider`              | Which weather provider should be used. <br><br> **Possible values:** `openweathermap` , `pirateweather` , `weathergov`, `ukmetofficedatahub`, `weatherbit`, `envcanada`, `openmeteo`, `weatherflow`, `SMHI` or `yr`<br> **Default value:** `openweathermap`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| `weatherProvider`              | Which weather provider should be used. <br><br> **Possible values:** `openweathermap` , `pirateweather` , `weathergov`, `ukmetofficedatahub`, `weatherbit`, `envcanada`, `openmeteo`, `weatherflow`, `SMHI`, `weatherapi` or `yr`<br> **Default value:** `openweathermap`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | `type`                         | Which type of weather data should be displayed. <br><br> **Possible values:** `current` , `hourly` , `daily` , or `forecast` <br> **Default value:** `current` <br><br> **Note:** The `daily` type is another name for the `forecast` type, and the two are interchangeable. <br><br> The `hourly` type is currently only implemented for these provider: <br>- **Environment Canada** (`envcanada`) <br>- **Openmeteo** <br>- **OpenWeatherMap** (`openweathermap`), and only when `/onecall` is used as the specified endpoint. Latitude and longitude [(see below)](/modules/weather#openweathermap-options) are **required** for `hourly`. The locationID and location options are ignored when the OpenWeatherMap One Call API is used and you will get wrong weather information.<br>- **Weather.gov** (`weathergov`)<br/>- **Yr** (`yr`) |
 | `units`                        | What units to use. Specified by config.js <br><br> **Possible values:** `config.units` = Specified by config.js, `metric` = Celsius, `imperial` = Fahrenheit <br> **Default value:** `config.units`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | `tempUnits`                    | What units to use for temperature. If not specified, the module uses the `units` value from `config.js`. <br><br> **Possible values:** `config.units` = Specified by config.js, `metric` = Celsius, `imperial` = Fahrenheit <br> **Default value:** `config.units`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
@@ -63,7 +105,8 @@ The following properties can be configured:
 | `initialLoadDelay`             | The initial delay before loading. If you have multiple modules that use the same API key, you might want to delay one of the requests. (Milliseconds) <br><br> **Possible values:** `1000` - `5000` <br> **Default value:** `0`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | `appendLocationNameToHeader`   | If set to `true`, the returned location name will be appended to the header of the module, if the header is enabled. This is mainly interesting when using calender based weather. <br><br> **Default value:** `true`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
 | `calendarClass`                | The class for the calender module to base the event based weather information on. <br><br> **Default value:** `'calendar'`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| `useCorsProxy`                 | Some weather modules need a cors proxy to get their api running. <br><br> **Possible values:** true or false <br> **Default value:** `false` (except providers `pirateweather` and `envcanada`)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `themeDir`                     | Defines the location of the 3 `*.njk` and the `weather.css` file. You can use an own dir containing these files to override the default ones. Directory must be specified relative to the `weather` directory. <br><br> **Possible values:** relative path <br> **Default value:** `./`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| `themeCustomScripts`           | Defines additional script file names located in the `themeDir`. Only needed it your weather theme needs own additional scripts. <br><br> **Possible values:** array of filenames <br> **Default value:** `[]`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 
 #### Current weather options
 
@@ -192,6 +235,15 @@ hours.
 | `lon`             | The longitude coordinate for the desired location. <br><br> **Possible value:** `18.069666` <br> This value is **REQUIRED**                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | `maxNumberOfDays` | How many days of forecast to return. Specified by config.js <br><br> **Possible values:** `1` - `8` <br> **Default value:** `5` (5 days) <br> This value is optional. By default the weather module will return 5 days.                                                                                                                                                                                                                                                                                                                                                           |
 | `pastDays`        | How many days should forecast should include from historic data. Specified by config.js <br><br> **Possible values:** `0` - `5` <br> **Default value:** `0` (0 days) <br> This value is optional. By default the weather module will return 0 days from historical data. <br><br> **Note:** Since Open-Meteo returns 8 days of data at all, this setting could reduce the range of forecast data set on `maxNumberOfDays`. e.g. if `maxNumberOFDays` is set to `7` and `pastDays` is set to `5`, data received will be from 5 days from the past to 2 days in the future (8 days) |
+
+### Weather API (`weatherapi`) options
+
+| Option    | Description                                                                                                                                    |
+| --------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| `apiBase` | The Weather API base URL.<br><br> **Possible value:** `https://api.weatherapi.com/v1`                                                          |
+| `apiKey`  | The [Weather API](https://www.weatherapi.com) key which can be obtained by creating an Weather API account <br><br> This value is **REQUIRED** |
+| `lat`     | The latitude coordinate for the desired location. <br><br> **Possible value:** `59.322665` <br> This value is **REQUIRED**                     |
+| `lon`     | The longitude coordinate for the desired location. <br><br> **Possible value:** `18.069666` <br> This value is **REQUIRED**                    |
 
 ### Yr options
 

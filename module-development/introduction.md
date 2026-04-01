@@ -47,11 +47,11 @@ maintained by the MagicMirrorOrg.
 
 ## Module structure
 
-All modules are loaded in the `modules` folder. The default modules are grouped
-together in the `modules/default` folder. Your module should be placed in a
-subfolder of `modules`. Note that any file or folder you create in the `modules`
-folder will be ignored by git, allowing you to upgrade the MagicMirror² without
-the loss of your files.
+We have 2 folders. The default modules are grouped together in the
+`defaultmodules` folder. All other modules should be placed in a subfolder of
+`modules`. Note that any file or folder you create in the `modules` folder will
+be ignored by git, allowing you to upgrade the MagicMirror² without the loss of
+your files.
 
 A module can be placed in one single folder. Or multiple modules can be grouped
 in a subfolder. Note that name of the module must be unique. Even when a module
@@ -65,7 +65,13 @@ same time.
   by the node script. The node helper and module script can communicate with
   each other using an integrated socket system.
 - **modulename/public** - Any files in this folder can be accessed via the
-  browser on `/modulename/filename.ext`.
+  browser on `/modulename/filename.ext`. **Note:** This requires the module to
+  have a `node_helper.js` file. If your module doesn't need a node helper for
+  anything else, an empty stub is enough:
+  ```js
+  const NodeHelper = require("node_helper");
+  module.exports = NodeHelper.create({});
+  ```
 - **modulename/anyfileorfolder** Any other file or folder in the module folder
   can be used by the core module script. For example:
   _modulename/css/modulename.css_ would be a good path for your additional
