@@ -6,23 +6,6 @@ export default defineConfig({
   description: "The open source modular smart mirror platform.",
   lang: "en",
   ignoreDeadLinks: "localhostLinks",
-  head: [
-    [
-      "script",
-      {
-        async: "",
-        src: "https://www.googletagmanager.com/gtag/js?id=UA-1219071-59",
-      },
-    ],
-    [
-      "script",
-      {},
-      `window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'TAG_ID');`,
-    ],
-  ],
   sitemap: {
     hostname: "https://docs.magicmirror.builders/",
   },
@@ -59,12 +42,12 @@ export default defineConfig({
         collapsed: false,
         items: [
           { text: "Introduction", link: "/" },
-          { text: "Requirements", link: "/getting-started/requirements.md" },
+          { text: "Requirements", link: "/getting-started/requirements" },
           {
             text: "Installation & Usage",
-            link: "/getting-started/installation.md",
+            link: "/getting-started/installation",
           },
-          { text: "Upgrade Guide", link: "/getting-started/upgrade-guide.md" },
+          { text: "Upgrade Guide", link: "/getting-started/upgrade-guide" },
         ],
       },
       {
@@ -142,12 +125,12 @@ export default defineConfig({
         text: "Core Development",
         collapsed: true,
         items: [
-          { text: "Introduction", link: "/core-development/introduction.md" },
+          { text: "Introduction", link: "/core-development/introduction" },
           {
             text: "Testing",
-            link: "/core-development/testing.md",
+            link: "/core-development/testing",
           },
-          { text: "Debugging", link: "/core-development/debugging.md" },
+          { text: "Debugging", link: "/core-development/debugging" },
         ],
       },
       {
